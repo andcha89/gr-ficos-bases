@@ -1,18 +1,40 @@
 ---
 title: "Gráficos del sistema base de R"
+subtitle: "Curso PF0953-"
 author: "Andrey Caballero"
-format: html
+date: "10/03/2024"
+format: 
+  html:
+    toc: true
+theme: yeti
+lang: es
 ---
 # Gráficos del sistema base de R
 
 ### Gráficos de dispersión
 
+```{r}
+
+library(tidyverse)
+library(palmerpenguins)
+```
+
+
 Muestras la dispersión de los carros
+
+```{r}
+#| label: Gráfico-dispersión-cars
+#| code-fold: true
+
+plot (cars)
+
+```
+
 ```{r}
 plot(cars)
 ```
 
-
+### Gráficos de dispersión para calidad de aire
 ```{r}
 plot(
   x=airquality$Day,
@@ -24,7 +46,7 @@ plot(
   col= "blue"
 )
 ```
-
+### Gráfico de barras 
 ```{r}
 tipo_plant <- table(iris$Species)
 colores <- c("blue", "red", "white")
@@ -39,7 +61,7 @@ barplot(
   ylab = "Frecuencia",
 )
 ```
-
+### Gráficos de pastel para ver los porcentajes de distribución en tipo de planta
 ```{r}
 pie(
   x = tipo_plant,
@@ -50,7 +72,7 @@ pie(
 )
 
 ```
-
+### Gráficos de histograma de concentración de contaminantes
 ```{r}
 hist(
   x = CO2$uptake, 
@@ -60,5 +82,32 @@ hist(
   ylab = "Frecuencia",
   sub= "Fuente: Potvin, C., et al. (1990) “The statistical analysis of ecophysiological"
 )
+```
+#### Relación entre la longitud entre del pico entre la masa
+```{r}
+penguins |>
+  ggplot(aes(x = bill_length_mm, y = body_mass_g)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "loess", se = FALSE) +
+  ggtitle("Longitud del pico vs. masa") +
+  xlab("Longitud del pico (mm)") +
+  ylab("Masa (g)") +
+  labs(color = "Especie", shape = "Especie")
+
+```
+#### Relación entre la longitud entre del pico entre la masa por especies
+```{r}
+# Gráfico de dispersión de longitud del pico vs masa (peso) por especie
+penguins |>
+ggplot(aes(x = bill_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  geom_smooth(method = "lm", se = FALSE, aes(color = species)) +
+  scale_color_manual(values = c("darkorange", "darkorchid", "cyan4")) +
+  ggtitle("Longitud del pico vs. masa por especie") +
+  xlab("Longitud del pico (mm)") +
+  ylab("Masa (g)") +
+  labs(color = "Especie", shape = "Especie")
 ```
 
