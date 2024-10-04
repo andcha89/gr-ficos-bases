@@ -1,0 +1,64 @@
+---
+title: "Gráficos del sistema base de R"
+author: "Andrey Caballero"
+format: html
+---
+# Gráficos del sistema base de R
+
+### Gráficos de dispersión
+
+Muestras la dispersión de los carros
+```{r}
+plot(cars)
+```
+
+
+```{r}
+plot(
+  x=airquality$Day,
+  y=airquality$Ozone,
+  main= "Variación de la concentración de ozono en 30 días",
+  sub="Fuente: Chambers, J. M.et al (1983).Graphical Methods for Data Analysis. Belmont, CA: Wadsworth",
+  xlab= "Días (d)",
+  ylab= "Concentración de ozono en ppm",
+  col= "blue"
+)
+```
+
+```{r}
+tipo_plant <- table(iris$Species)
+colores <- c("blue", "red", "white")
+
+barplot(
+  height= tipo_plant,
+  width = 100,
+  col = colores,
+  sub= "Fuente: Fisher, R. A. (1936) The use of multiple measurements in taxonomic problems",
+  main = "Distribución de las especies de plantas analizadas",
+  xlab = "Especie de planta",
+  ylab = "Frecuencia",
+)
+```
+
+```{r}
+pie(
+  x = tipo_plant,
+  col= colores,
+  sub= "Fuente: Fisher, R. A. (1936) The use of multiple measurements in taxonomic problems",
+  main = "Distrubución de las especies de plantas estudiadas",
+  labels = paste(names(tipo_plant), ":", tipo_plant)
+)
+
+```
+
+```{r}
+hist(
+  x = CO2$uptake, 
+  breaks = 5,
+  main = "Distribución del consumo de laconcentración de CO2 para las plantas", 
+  xlab = "Concentración consumida de dióxido de carbono", 
+  ylab = "Frecuencia",
+  sub= "Fuente: Potvin, C., et al. (1990) “The statistical analysis of ecophysiological"
+)
+```
+
